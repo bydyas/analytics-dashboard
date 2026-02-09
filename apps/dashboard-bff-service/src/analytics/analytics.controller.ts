@@ -1,18 +1,18 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AnalyticsService } from './analytics.service';
-import { GetSalesParamsDto } from './dtos';
+import { GetSalesParamsDto, MetaDto } from './dtos';
 
 @ApiTags('Analytics')
 @Controller('')
 export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) {}
 
-  // DATA /api/data
+  // GET /api/data
   @Get('data')
   @ApiOperation({
-    summary: 'Reports sales dataset',
+    summary: 'Receives aggregated sales dataset',
     description:
       'Processes the 5,000+ data points and group them according to the aggregationLevel.',
   })
@@ -20,9 +20,28 @@ export class AnalyticsController {
     status: 201,
     description: 'Returns the aggregated dataset.',
   })
-  async reportSales(
+  public async reportSales(
     @Query() getSalesParamsDto: GetSalesParamsDto,
   ): Promise<unknown> {
     return this.analyticsService.reportSales(getSalesParamsDto);
+  }
+
+  // POST /api/data
+  @Post('data')
+  @HttpCode(206)
+  @ApiOperation({
+    summary: 'Receives aggregated sales dataset with pagination',
+    description:
+      'Processes the 5,000+ data points and group them according to the aggregationLevel.',
+  })
+  @ApiResponse({
+    status: 206,
+    description: 'Returns the aggregated and paginated dataset.',
+  })
+  public async reportPaginatedSales(
+    @Query() getSalesParamsDto: GetSalesParamsDto,
+    @Body() { pagination }: MetaDto,
+  ): Promise<unknown> {
+    return this.analyticsService.reportSales(getSalesParamsDto, pagination);
   }
 }

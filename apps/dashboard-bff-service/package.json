@@ -15,6 +15,8 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
   },
   "dependencies": {
+    "date-fns": "4.1.0",
+    "compression": "1.8.1",
     "@common/contracts": "*",
     "@faker-js/faker": "10.3.0",
     "@nestjs/common": "^11.1.11",
@@ -31,6 +33,7 @@
     "@common/eslint-config": "*",
     "@common/jest-config": "*",
     "@common/typescript-config": "*",
+    "@types/compression": "1.8.1",
     "@jest/globals": "^30.2.0",
     "@nestjs/cli": "^11.0.14",
     "@nestjs/schematics": "^11.0.9",

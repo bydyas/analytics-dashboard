@@ -1,17 +1,28 @@
 import { ISale } from '@common/contracts';
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 
-import { generateSales } from '../_utils';
-import { GetSalesParamsDto } from './dtos';
+import { generateSales, paginate } from '../_utils';
+import { GetSalesParamsDto, PaginationBodyDto } from './dtos';
+import { aggregateSales } from 'src/_utils/aggregate-sales';
 
 @Injectable()
-export class AnalyticsService {
-  async reportSales({
-    startDate,
-    endDate,
-    aggregationLevel,
-  }: GetSalesParamsDto): Promise<unknown> {
-    const sales: ISale[] = generateSales(startDate, endDate, aggregationLevel);
-    return { count: sales.length, data: sales };
+export class AnalyticsService implements OnModuleInit {
+  private sales: Array<ISale>;
+
+  onModuleInit() {
+    this.sales = generateSales();
+  }
+
+  public async reportSales(
+    params: GetSalesParamsDto,
+    pagination?: PaginationBodyDto,
+  ): Promise<unknown> {
+    const aggregated = aggregateSales(this.sales, params);
+
+    if (pagination) {
+      return paginate(aggregated, pagination);
+    }
+
+    return aggregated;
   }
 }

@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import compression from 'compression';
 
 import { AppModule } from './app.module';
 import { AppConfig } from './app.config';
@@ -17,6 +19,12 @@ async function bootstrap() {
   SwaggerModule.setup(appConfig.apiPrefix, app, documentFactory);
 
   app.enableCors();
+  app.use(compression());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+    }),
+  );
   app.setGlobalPrefix(appConfig.apiPrefix);
 
   await app.listen(appConfig.port, appConfig.host);
