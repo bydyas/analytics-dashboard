@@ -23,11 +23,6 @@
       "import": "./dist/nest.js",
       "require": "./dist/nest.js",
       "types": "./dist/nest.d.ts"
-    },
-    "./next": {
-      "import": "./dist/next.js",
-      "require": "./dist/next.js",
-      "types": "./dist/next.d.ts"
     }
   },
   "devDependencies": {
