@@ -11,6 +11,7 @@ export class AppConfig {
   readonly version: string;
   readonly apiPrefix: string;
   readonly isDevelopment: boolean;
+  readonly stdTTL: number;
 
   constructor(private readonly envGetter: EnvGetterService) {
     this.isDevelopment =
@@ -27,5 +28,6 @@ export class AppConfig {
     );
     this.version = this.envGetter.getOptionalEnv('VERSION', version);
     this.apiPrefix = this.envGetter.getOptionalEnv('API_PREFIX', 'api');
+    this.stdTTL = this.envGetter.getOptionalNumericEnv('CACHE_TTL', 60);
   }
 }

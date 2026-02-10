@@ -1,0 +1,1 @@
+export const DEFAULT_TTL_IN_SECONDS = 60;

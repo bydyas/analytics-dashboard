@@ -1,27 +1,35 @@
-import { ISale } from '@common/contracts';
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { IAggregationSale, IPaginationResult, ISale } from '@common/contracts';
+import { Injectable } from '@nestjs/common';
+import { CacheService } from '@common/cache';
 
-import { generateSales, paginate } from '../_utils';
+import { generateSales, paginate, aggregateSales } from '../_utils';
 import { GetSalesParamsDto, PaginationBodyDto } from './dtos';
-import { aggregateSales } from 'src/_utils/aggregate-sales';
 
 @Injectable()
-export class AnalyticsService implements OnModuleInit {
-  private sales: Array<ISale>;
+export class AnalyticsService {
+  constructor(private readonly cacheService: CacheService) {}
 
-  onModuleInit() {
-    this.sales = generateSales();
-  }
-
-  public async reportSales(
+  /**
+   * Gets aggregated (and optionally paginated) sales dataset.
+   *
+   * @param params - Aggregation params.
+   * @param pagination  - Pagination params. Optional.
+   * @returns A dataset.
+   */
+  public async getSales(
     params: GetSalesParamsDto,
     pagination?: PaginationBodyDto,
-  ): Promise<unknown> {
-    const aggregated = aggregateSales(this.sales, params);
+  ): Promise<Array<IAggregationSale> | IPaginationResult<IAggregationSale>> {
+    const cacheKey = this.cacheService.createKey(params);
+    let aggregated = this.cacheService.get<IAggregationSale[]>(cacheKey);
 
-    if (pagination) {
-      return paginate(aggregated, pagination);
+    if (!aggregated) {
+      const sales = generateSales();
+      aggregated = aggregateSales(sales, params);
+      this.cacheService.set(cacheKey, aggregated);
     }
+
+    if (pagination) return paginate(aggregated, pagination);
 
     return aggregated;
   }

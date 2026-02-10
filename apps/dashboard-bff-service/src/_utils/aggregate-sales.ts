@@ -7,6 +7,13 @@ import {
 } from '@common/contracts';
 import { GetSalesParamsDto } from '../analytics/dtos';
 
+/**
+ * Groups data points according to the aggregationLevel.
+ *
+ * @param sales - Data points
+ * @param params - Aggregation params
+ * @returns Aggregated dataset.
+ */
 export const aggregateSales = (
   sales: Array<ISale>,
   { startDate, endDate, aggregationLevel }: GetSalesParamsDto,

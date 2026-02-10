@@ -10,6 +10,7 @@
 │   ├── dashboard-bff-service       # Backend-for-Frontend service                
 │   └── dashboard-frontend-service  # Frontend UI service                      
 └── packages
+    |── @common/cache               # Cache
     |── @common/contracts           # Types
     ├── @common/eslint-config       # `eslint` configurations (includes `prettier`)
     ├── @common/jest-config         # `jest` configurations

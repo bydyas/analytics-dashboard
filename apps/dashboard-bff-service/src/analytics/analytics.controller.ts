@@ -20,10 +20,10 @@ export class AnalyticsController {
     status: 201,
     description: 'Returns the aggregated dataset.',
   })
-  public async reportSales(
+  public async getSales(
     @Query() getSalesParamsDto: GetSalesParamsDto,
   ): Promise<unknown> {
-    return this.analyticsService.reportSales(getSalesParamsDto);
+    return this.analyticsService.getSales(getSalesParamsDto);
   }
 
   // POST /api/data
@@ -38,10 +38,10 @@ export class AnalyticsController {
     status: 206,
     description: 'Returns the aggregated and paginated dataset.',
   })
-  public async reportPaginatedSales(
+  public async getPaginatedSales(
     @Query() getSalesParamsDto: GetSalesParamsDto,
     @Body() { pagination }: MetaDto,
   ): Promise<unknown> {
-    return this.analyticsService.reportSales(getSalesParamsDto, pagination);
+    return this.analyticsService.getSales(getSalesParamsDto, pagination);
   }
 }
