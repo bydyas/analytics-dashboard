@@ -11,12 +11,10 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const port = Number(env.VITE_PORT);
-  if (!Number.isInteger(port)) throw Error('invalid port');
 
   return ({
     server: {
-      port
+      port: Number(env.VITE_PORT) || 3001
     },
     plugins: [
       devtools(),

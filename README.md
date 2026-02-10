@@ -1,6 +1,6 @@
+[![Analytics Dashboard CI](https://github.com/bydyas/analytics-dashboard/actions/workflows/analytics-dashboard.yml/badge.svg)](https://github.com/bydyas/analytics-dashboard/actions/workflows/analytics-dashboard.yml)
+
 # The Analytics Dashboard
-
-
 
 ### Apps and Packages
 
