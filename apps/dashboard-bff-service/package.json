@@ -15,10 +15,11 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
   },
   "dependencies": {
+    "@common/contracts": "*",
+    "@common/health": "*",
+    "@common/cache": "*",
     "date-fns": "4.1.0",
     "compression": "1.8.1",
-    "@common/contracts": "*",
-    "@common/cache": "*",
     "@faker-js/faker": "10.3.0",
     "@nestjs/common": "^11.1.11",
     "@nestjs/core": "^11.1.11",
