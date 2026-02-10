@@ -14,7 +14,12 @@ export default defineConfig(({ mode }) => {
 
   return ({
     optimizeDeps: {
-      include: ["@common/contracts"]
+      include: ['@common/contracts'],
+    },
+    build: {
+      commonjsOptions: {
+        include: [/packages/, /node_modules/],
+      },
     },
     server: {
       port: Number(env.VITE_PORT) || 3001
