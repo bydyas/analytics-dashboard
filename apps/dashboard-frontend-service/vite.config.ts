@@ -13,6 +13,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return ({
+    optimizeDeps: {
+      include: ["@common/contracts"]
+    },
     server: {
       port: Number(env.VITE_PORT) || 3001
     },

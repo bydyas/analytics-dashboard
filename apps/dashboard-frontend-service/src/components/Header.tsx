@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Box, Github } from 'lucide-react'
-import { appConfig } from '../app.config'
+import { appConfig } from '@/app.config'
 
 export default function Header() {
   return (

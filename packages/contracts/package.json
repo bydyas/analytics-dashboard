@@ -27,8 +27,6 @@
       "types": "./dist/*.d.ts"
     }
   },
-  "peerDependencies": {},
-  "dependencies": {},
   "devDependencies": {
     "@common/eslint-config": "*",
     "@common/typescript-config": "*",
