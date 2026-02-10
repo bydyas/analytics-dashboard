@@ -1,13 +1,17 @@
-import { useState } from 'react'
+import { Activity, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { type TAggregationLevel } from '@common/contracts'
+import { useQuery } from '@tanstack/react-query'
+import { type ISaleQueryParams, type TAggregationLevel } from '@common/contracts'
 
 import { appConfig } from '@/app.config'
 
 import AggregationLevelSelect from '@/components/aggregation-level-select'
 import { DatePicker } from '@/components/date-picker'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Separator } from '@/components/ui/separator'
 import { SalesChart } from '@/components/sales-chart'
+import { getSales } from '@/api/get-sales'
+import { NoContent } from '@/components/no-content'
 
 
 export const Route = createFileRoute('/')({
@@ -15,9 +19,19 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-  const [aggregationLevel, setAggregationLevel] = useState<TAggregationLevel>();
+  // TODO: abstract logic into useChartFilters hook
+  const [startDate, setStartDate] = useState<Date>()
+  const [endDate, setEndDate] = useState<Date>()
+  const [aggregationLevel, setAggregationLevel] = useState<TAggregationLevel>()
+
+  const params = { startDate, endDate, aggregationLevel }
+  const { data, error, status } = useQuery({
+    queryKey: ['sales', params],
+    queryFn: () => getSales(params as ISaleQueryParams)
+  })
+  
+  console.log("status ==> ", status);
+  console.log("data ==> ", data);
 
   return (
     <>
@@ -28,17 +42,25 @@ function App() {
           <div className='flex gap-6'>
             <DatePicker date={startDate} setDate={setStartDate} variant='start' />
             <DatePicker date={endDate} setDate={setEndDate} variant='end' />
-            <AggregationLevelSelect value={aggregationLevel} onValueChange={setAggregationLevel} />
+            <AggregationLevelSelect onValueChange={setAggregationLevel} />
           </div>
           <Separator className='my-6' />
-          <SalesChart data={[
-            { date: "2025-01-01", total: 186 },
-            { date: "2025-01-01", total: 305 },
-            { date: "2025-01-01", total: 237 },
-            { date: "2025-01-01", total: 73 },
-            { date: "2025-01-01", total: 209 },
-            { date: "2025-01-01", total: 214 },
-          ]} />
+
+          <Activity mode={!data?.length ? 'visible' : 'hidden'}>
+            <NoContent /> 
+          </Activity>
+
+          <Activity mode={status === 'error' ? 'visible' : 'hidden'}>
+            <p className='text-red bold'>{JSON.stringify(error)}</p> 
+          </Activity>
+
+          <Activity mode={status === 'pending' ? 'visible' : 'hidden'}>
+            <Skeleton className='w-full h-[300px]'/> 
+          </Activity>
+
+          <Activity mode={data?.length && status === 'success' ? 'visible' : 'hidden'}>
+            <SalesChart data={data} />
+          </Activity>
         </main>
       </div>
     </>

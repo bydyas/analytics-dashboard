@@ -1,7 +1,8 @@
 class AppConfig {
-    clientName = import.meta.env.VITE_CLIENT_NAME || 'frontend-service';
-    isDev = import.meta.env.DEV;
-    githubRepo = 'https://github.com/bydyas/analytics-dashboard';
+    clientName = import.meta.env.VITE_CLIENT_NAME || 'frontend-service'
+    isDev = import.meta.env.DEV
+    githubRepo = import.meta.env.VITE_REPO
+    baseApi = import.meta.env.VITE_API
 }
 
-export const appConfig = new AppConfig();
+export const appConfig = new AppConfig()

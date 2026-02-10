@@ -1,7 +1,7 @@
 export const AggregationDate = {
   DAILY: 'yyyy-mm-dd',
-  WEEKLY: 'yyyy-ii',
-  MONTHLY: 'yyyy-mm',
+  WEEKLY: 'yyyy-mm',
+  MONTHLY: 'yyyy-ii',
 } as const;
 
 export type TAggregationDate =

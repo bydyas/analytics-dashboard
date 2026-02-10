@@ -1,6 +1,6 @@
-import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import type { IAggregationSale } from "@common/contracts"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid } from "recharts"
 
 const chartConfig = {
   total: {
@@ -10,20 +10,15 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export interface ISalesChartProps {
-    data: IAggregationSale[];
+    data: IAggregationSale[] | undefined;
 }
 
-export function SalesChart({ data }: ISalesChartProps) {
+export function SalesChart({ data = [] }: ISalesChartProps) {
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart accessibilityLayer data={data}>
         <CartesianGrid vertical={false} />
-        <XAxis
-            dataKey="date"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={false}
-        />
+        <ChartTooltip content={<ChartTooltipContent />} />
         <Bar dataKey="total" fill="var(--color-total)" radius={4} />
       </BarChart>
     </ChartContainer>

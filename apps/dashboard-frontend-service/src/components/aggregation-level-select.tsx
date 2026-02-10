@@ -2,13 +2,12 @@ import { AggregationLevel, type TAggregationLevel } from "@common/contracts";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 export interface IAggregationLevelSelectProps {
-    value: TAggregationLevel | undefined;
     onValueChange: (value: TAggregationLevel) => void;
 }
 
-export default function AggregationLevelSelect({ value, onValueChange }: IAggregationLevelSelectProps) {
+export default function AggregationLevelSelect({ onValueChange }: IAggregationLevelSelectProps) {
     return (
-        <Select value={value} onValueChange={onValueChange}>
+        <Select onValueChange={onValueChange}>
             <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Aggregation level" />
             </SelectTrigger>
