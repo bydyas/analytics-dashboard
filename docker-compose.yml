@@ -1,0 +1,19 @@
+services:
+  dashboard-bff-service:
+    build:
+      context: .
+      dockerfile: apps/dashboard-bff-service/Dockerfile
+    container_name: dashboard-bff-service
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - CACHE_TTL=120
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s

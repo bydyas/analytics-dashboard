@@ -2,7 +2,10 @@
 
 # The Analytics Dashboard
 
-### Apps and Packages
+- [Structure](#structure)
+- [Set up](#set-up)
+
+### Structure
 
 ```shell
 .
@@ -15,4 +18,16 @@
     ├── @common/eslint-config       # `eslint` configurations (includes `prettier`)
     ├── @common/jest-config         # `jest` configurations
     ├── @common/typescript-config   # `tsconfig.json`s used throughout the monorepo
+```
+
+### Set up
+
+via __Docker__ (runs in production mode):
+```shell
+docker-compose up
+```
+
+via __package manager__ (runs in dev mode => debug logs):
+```
+yarn install & dev
 ```
