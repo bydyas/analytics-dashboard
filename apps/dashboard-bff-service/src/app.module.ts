@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppConfigModule } from 'nestjs-env-getter';
 import { CacheModule } from '@common/cache';
 import { HealthModule } from '@common/health';
+import { LoggerModule } from '@common/logger';
 
 import { AppConfig } from './app.config';
 import { AnalyticsModule } from './analytics/analytics.module';
@@ -12,6 +13,13 @@ import { AnalyticsModule } from './analytics/analytics.module';
     HealthModule.forRootAsync({
       useFactory: ({ serviceName }: AppConfig) => ({
         name: serviceName,
+      }),
+      inject: [AppConfig],
+    }),
+    LoggerModule.forRootAsync({
+      useFactory: ({ serviceName, loggerLevel }: AppConfig) => ({
+        name: serviceName,
+        level: loggerLevel,
       }),
       inject: [AppConfig],
     }),

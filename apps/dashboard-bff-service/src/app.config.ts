@@ -1,3 +1,4 @@
+import { LoggerModuleOptions } from '@common/logger';
 import { Injectable } from '@nestjs/common';
 import { EnvGetterService } from 'nestjs-env-getter';
 import { version } from 'package.json';
@@ -12,6 +13,7 @@ export class AppConfig {
   readonly apiPrefix: string;
   readonly isDevelopment: boolean;
   readonly stdTTL: number;
+  readonly loggerLevel: LoggerModuleOptions['level'];
 
   constructor(private readonly envGetter: EnvGetterService) {
     this.isDevelopment =
@@ -29,5 +31,8 @@ export class AppConfig {
     this.version = this.envGetter.getOptionalEnv('VERSION', version);
     this.apiPrefix = this.envGetter.getOptionalEnv('API_PREFIX', 'api');
     this.stdTTL = this.envGetter.getOptionalNumericEnv('CACHE_TTL', 60);
+    this.loggerLevel = <LoggerModuleOptions['level']>(
+      this.envGetter.getOptionalEnv('LOGGER_LEVEL', 'debug')
+    );
   }
 }
