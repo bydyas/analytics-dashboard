@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { handleThrowOnError } from './lib/axios'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -9,7 +10,16 @@ import { routeTree } from './routeTree.gen'
 import './styles.css'
 
 // Create a client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: handleThrowOnError,
+    },
+    mutations: {
+      throwOnError: handleThrowOnError,
+    },
+  },
+});
 
 // Create a new router instance
 const router = createRouter({

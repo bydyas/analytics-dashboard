@@ -6,14 +6,17 @@ import { LayoutTheme } from '@common/contracts'
 
 import { ThemeProvider } from '@/providers/theme-provider'
 import { appConfig } from '@/app.config'
-
-import Header from '@/components/header'
+import { ChartFiltersProvider } from '@/providers/chart-filters-provider'
 
 export const Route = createRootRoute({
   component: () => (
-    <ThemeProvider defaultTheme={LayoutTheme.DARK} storageKey="vite-ui-theme">
-      <Header />
-      <Outlet />
+    <>
+      <ThemeProvider defaultTheme={LayoutTheme.DARK} storageKey="vite-ui-theme">
+        <ChartFiltersProvider>
+          <Outlet />
+        </ChartFiltersProvider>
+      </ThemeProvider>
+
       {appConfig.isDev && (
         <TanStackDevtools
           config={{
@@ -33,6 +36,6 @@ export const Route = createRootRoute({
           ]}
         />
       )}
-    </ThemeProvider>
+    </>
   ),
 })

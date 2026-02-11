@@ -1,6 +1,12 @@
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
-import type { IAggregationSale } from "@common/contracts"
 import { Bar, BarChart, CartesianGrid } from "recharts"
+
+import { useChartFilters } from "@/providers/chart-filters-provider";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
+import { Skeleton } from "./ui/skeleton";
+import NoContent from "./no-content";
+import ErrorContent from "./error-content";
+import { useChartQuery } from "@/hooks/useChartQuery";
+import type { ISaleQueryParams } from "@common/contracts";
 
 const chartConfig = {
   total: {
@@ -9,11 +15,22 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-export interface ISalesChartProps {
-    data: IAggregationSale[] | undefined;
-}
+export default function SalesChart() {
+  const { startDate, endDate, aggregationLevel  } = useChartFilters()
+  const { data, error, status, enabled } = useChartQuery({ startDate, endDate, aggregationLevel } as ISaleQueryParams)
+  
+  if (!enabled && ['success', 'pending'].includes(status)) {
+    return <NoContent /> 
+  }
 
-export default function SalesChart({ data = [] }: ISalesChartProps) {
+  if (status === 'error') {
+    return <ErrorContent message={error?.message} />
+  }
+
+  if (enabled && status === 'pending') {
+    return <Skeleton className='w-full h-[300px]'/> 
+  }
+
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart accessibilityLayer data={data}>
