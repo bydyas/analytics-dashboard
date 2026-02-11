@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { subYears } from 'date-fns';
 import type { ISale } from '@common/contracts';
 
 const MIN_SALES_NUM = 5_000;
@@ -14,8 +15,8 @@ const MAX_VALUE = 100_000;
  * @returns An array of sales dataset.
  */
 export const generateSales = (
-  from: Date = new Date('2025-01-01'),
-  to: Date = new Date('2026-01-01'),
+  from: Date = subYears(new Date(), 1),
+  to: Date = new Date(),
 ): Array<ISale> => {
   return Array.from(
     { length: faker.number.int({ min: MIN_SALES_NUM, max: MAX_SALES_NUM }) },
