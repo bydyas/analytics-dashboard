@@ -5,7 +5,7 @@ RUN apk update
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN turbo prune --scope=dashboard-bff-service --docker
+RUN turbo prune --scope=dashboard-frontend-service --docker
 
 
 FROM node:${NODE_VERSION} AS installer
@@ -22,12 +22,11 @@ WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
 COPY .gitignore .gitignore
-RUN yarn turbo run build --filter=dashboard-bff-service
+RUN yarn turbo run build --filter=dashboard-frontend-service
 
 FROM node:${NODE_VERSION} AS runner
-RUN apk add --no-cache wget
+RUN yarn global add serve
 WORKDIR /app
 COPY --from=sourcer /app/ .
-
-EXPOSE 3001
-CMD [ "node",  "apps/dashboard-bff-service/dist/src/main.js" ]
+EXPOSE 3000
+CMD [ "serve", "-s",  "apps/dashboard-frontend-service/dist" ]

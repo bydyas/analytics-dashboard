@@ -1,8 +1,7 @@
 class AppConfig {
-    clientName = import.meta.env.VITE_CLIENT_NAME || 'frontend-service'
+    clientName = import.meta.env.VITE_CLIENT_NAME || 'dashboard-frontend-service'
     isDev = import.meta.env.DEV
-    githubRepo = import.meta.env.VITE_REPO
-    baseApi = import.meta.env.VITE_API
+    baseApi = import.meta.env.VITE_API || 'http://localhost:3001/api'
 }
 
 export const appConfig = new AppConfig()

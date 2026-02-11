@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      port: Number(env.VITE_PORT) || 3001
+      port: env.VITE_PORT ? Number(env.VITE_PORT) : 3000
     },
     plugins: [
       devtools(),
