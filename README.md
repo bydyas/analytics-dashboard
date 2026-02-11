@@ -13,6 +13,7 @@
 │   ├── dashboard-bff-service       # Backend-for-Frontend service                
 │   └── dashboard-frontend-service  # Frontend UI service                      
 └── packages
+    |── @common/health              # Health check
     |── @common/cache               # Cache
     |── @common/contracts           # Types
     ├── @common/eslint-config       # `eslint` configurations (includes `prettier`)
@@ -22,12 +23,12 @@
 
 ### Set up
 
-via __Docker__ (runs in production mode):
+via __Docker__:
 ```shell
 docker-compose up
 ```
 
-via __package manager__ (runs in dev mode => debug logs):
+via __package manager__:
 ```
-yarn install & dev
+yarn install & yarn dev
 ```
