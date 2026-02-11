@@ -6,12 +6,12 @@ import { type ISaleQueryParams, type TAggregationLevel } from '@common/contracts
 import { appConfig } from '@/app.config'
 
 import AggregationLevelSelect from '@/components/aggregation-level-select'
-import { DatePicker } from '@/components/date-picker'
+import DatePicker from '@/components/date-picker'
+import SalesChart from '@/components/sales-chart'
+import NoContent from '@/components/no-content'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Separator } from '@/components/ui/separator'
-import { SalesChart } from '@/components/sales-chart'
 import { getSales } from '@/api/get-sales'
-import { NoContent } from '@/components/no-content'
 
 
 export const Route = createFileRoute('/')({

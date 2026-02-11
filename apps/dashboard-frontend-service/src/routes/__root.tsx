@@ -5,8 +5,9 @@ import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
 import { LayoutTheme } from '@common/contracts'
 
 import { ThemeProvider } from '@/providers/theme-provider'
-import Header from '@/components/header'
 import { appConfig } from '@/app.config'
+
+import Header from '@/components/header'
 
 export const Route = createRootRoute({
   component: () => (

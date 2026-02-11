@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/empty"
 import { ChartArea } from "lucide-react"
 
-export function NoContent() {
+export default function NoContent() {
   return (
     <Empty className="border border-dashed max-h-[293px] w-full">
       <EmptyHeader>

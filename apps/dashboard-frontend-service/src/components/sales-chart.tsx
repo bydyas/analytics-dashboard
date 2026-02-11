@@ -13,7 +13,7 @@ export interface ISalesChartProps {
     data: IAggregationSale[] | undefined;
 }
 
-export function SalesChart({ data = [] }: ISalesChartProps) {
+export default function SalesChart({ data = [] }: ISalesChartProps) {
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart accessibilityLayer data={data}>

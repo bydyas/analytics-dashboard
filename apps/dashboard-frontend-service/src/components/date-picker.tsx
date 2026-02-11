@@ -15,7 +15,7 @@ export interface IDataPickerProps {
   variant: 'start' | 'end';
 }
 
-export function DatePicker({ date, setDate, variant }: IDataPickerProps) {
+export default function DatePicker({ date, setDate, variant }: IDataPickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
