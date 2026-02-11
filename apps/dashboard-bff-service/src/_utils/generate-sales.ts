@@ -3,6 +3,8 @@ import type { ISale } from '@common/contracts';
 
 const MIN_SALES_NUM = 5_000;
 const MAX_SALES_NUM = 10_000;
+const MIN_VALUE = 0;
+const MAX_VALUE = 100_000;
 
 /**
  * Generates a mocked sales dataset over the mentioned period.
@@ -19,7 +21,7 @@ export const generateSales = (
     { length: faker.number.int({ min: MIN_SALES_NUM, max: MAX_SALES_NUM }) },
     () => ({
       timestamp: faker.date.between({ from, to }),
-      value: faker.number.int({ min: 0, max: Number.MAX_SAFE_INTEGER }),
+      value: faker.number.int({ min: MIN_VALUE, max: MAX_VALUE }),
     }),
   );
 };

@@ -9,7 +9,7 @@ import { ChartArea } from "lucide-react"
 
 export default function NoContent() {
   return (
-    <Empty className="border border-dashed max-h-[293px] w-full">
+    <Empty className="border border-dashed min-h-[310px] w-full">
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <ChartArea />

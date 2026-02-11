@@ -1,11 +1,7 @@
 import { format, isWithinInterval } from 'date-fns';
-import {
-  AggregationDate,
-  AggregationLevel,
-  IAggregationSale,
-  ISale,
-} from '@common/contracts';
+import { AggregationDate, IAggregationSale, ISale } from '@common/contracts';
 import { GetSalesParamsDto } from '../analytics/dtos';
+import { compareAggregatedSales } from './compare-aggregated-sales';
 
 /**
  * Groups data points according to the aggregationLevel.
@@ -32,5 +28,7 @@ export const aggregateSales = (
     {},
   );
 
-  return Object.entries(aggregated).map(([date, total]) => ({ date, total }));
+  return Object.entries(aggregated)
+    .map(([date, total]) => ({ date, total }))
+    .sort((a, b) => compareAggregatedSales(a, b, aggregationLevel));
 };

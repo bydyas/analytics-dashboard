@@ -7,7 +7,7 @@ export interface IErrorContentProps {
 
 export default function ErrorContent({ message = 'No details mentioned' }: IErrorContentProps) {
     return (
-        <Empty className="border border-dashed max-h-[293px] w-full">
+        <Empty className="border border-dashed min-h-[310px] w-full">
         <EmptyHeader>
             <EmptyMedia variant="icon">
             <Angry />

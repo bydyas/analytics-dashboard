@@ -1,4 +1,4 @@
-import { IAggregationSale, IPaginationResult, ISale } from '@common/contracts';
+import { IAggregationSale, IPaginationResult } from '@common/contracts';
 import { Injectable } from '@nestjs/common';
 import { CacheService } from '@common/cache';
 
