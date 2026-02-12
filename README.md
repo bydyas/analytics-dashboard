@@ -42,6 +42,10 @@ If you want to run the particular app:
 yarn workspace [app-name] dev
 ```
 
+=> [Backend Swagger Api](http://localhost:3001/api)
+
+=> [Dashboard Web](http://localhost:3000)
+
 ### Cache
 
 I made reusable caching module ```@common/cache``` based on **node-cache**. It provides a method to generate keys by serializing all relevant input parameters, converting Dates to timestamps, and hashing the result to ensure uniqueness. This guarantees that identical requests reuse cached data, preventing redundant backend calculations.
