@@ -3,6 +3,7 @@ import NodeCache from 'node-cache';
 
 import { CACHE_MODULE_OPTIONS } from './cache.token';
 import type { CacheModuleOptions } from './cache.types';
+import { hashString } from './cache.utils';
 
 @Injectable()
 export class CacheService {
@@ -15,10 +16,10 @@ export class CacheService {
   }
 
   /**
-   * Creates a cached key.
+   * Creates a caching key.
    *
-   * @param seed - A key base.
-   * @returns Key.
+   * @param seed - A key seed.
+   * @returns Hashed key.
    */
   public createKey(seed: string | number | object): string {
     if (typeof seed === 'object') {
@@ -26,9 +27,9 @@ export class CacheService {
       for (let k in seed) {
         key.push(seed[k] instanceof Date ? seed[k].getTime() : seed[k]);
       }
-      return key.join('-');
+      return hashString(key.join(':'));
     }
-    return `${seed}`;
+    return hashString(`${seed}`);
   }
 
   /**
