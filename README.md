@@ -30,6 +30,11 @@ docker-compose up
 ```
 
 via __package manager__:
-```
+```shell
 yarn install & yarn dev
+```
+
+If you want to run the particular app:
+```shell
+yarn workspace [app-name] dev
 ```
