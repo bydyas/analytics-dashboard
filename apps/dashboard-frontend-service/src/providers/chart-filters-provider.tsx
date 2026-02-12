@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 import type { TAggregationLevel } from '@common/contracts'
+import { useDebouncedCallback } from '@/hooks/useDebounce'
 
 type ChartFiltersProviderProps = {
   children: React.ReactNode
@@ -30,15 +31,19 @@ export function ChartFiltersProvider({ children }: ChartFiltersProviderProps) {
   const [endDate, setEndDate] = useState<Date>()
   const [aggregationLevel, setAggregationLevel] = useState<TAggregationLevel>()
 
+  const debouncedSetStartDate = useDebouncedCallback(setStartDate)
+  const debouncedSetEndDate = useDebouncedCallback(setEndDate)
+  const debouncedSetAggregationLevel = useDebouncedCallback(setAggregationLevel)
+
   return (
     <ChartFiltersProviderContext.Provider
       value={{
         startDate,
         endDate,
         aggregationLevel,
-        setStartDate,
-        setEndDate,
-        setAggregationLevel,
+        setStartDate: debouncedSetStartDate,
+        setEndDate: debouncedSetEndDate,
+        setAggregationLevel: debouncedSetAggregationLevel,
       }}
     >
       {children}
