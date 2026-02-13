@@ -23,10 +23,9 @@ export class CacheService {
    */
   public createKey(seed: string | number | object): string {
     if (typeof seed === 'object') {
-      const key = [];
-      for (let k in seed) {
-        key.push(seed[k] instanceof Date ? seed[k].getTime() : seed[k]);
-      }
+      const key = Object.keys(seed).map((k) =>
+        seed[k] instanceof Date ? seed[k].getTime() : seed[k],
+      );
       return hashString(key.join(':'));
     }
     return hashString(`${seed}`);
